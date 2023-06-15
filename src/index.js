@@ -31,6 +31,7 @@ function* fetchGif(action){
     try{
         console.log('fetching gifs with terms:', action.payload)
         yield axios.get(`/api/favorite/${action.payload}`)
+        
     }catch(error) {
         console.log('error fetching gifs', error)
     }

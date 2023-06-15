@@ -1,4 +1,7 @@
 import { useDispatch } from "react-redux"
+import { useSelector } from "react-redux";
+
+const gifListReducer = (store => store.gifList)
 
 const SearchResult = () => {
     const dispatch = useDispatch();
