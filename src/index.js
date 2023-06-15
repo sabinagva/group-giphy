@@ -45,10 +45,12 @@ function* fetchFav(){
     }
 }
 
-function* postGif(){
+function* postGif(action){
     try {
-        yield axios.post('/api/favorite ')
-        console.log('posting gifs')
+        yield axios.post('/api/favorite ',{url: action.payload})
+        console.log('action.payload is', action.payload)
+        console.log('posting favorite gifs')
+        yield put ({type: 'GET_GIF'})
     }catch(error) {
         console.log('error posting gifs to database',error)
     }
