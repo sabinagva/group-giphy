@@ -27,10 +27,10 @@ const gifList = (state = [], action) => {
 }
 //saga CRUD functions
 
-function* fetchGif(){
+function* fetchGif(action){
     try{
-        yield axios.get('/api/category')
-        console.log('fetching gifs')
+        console.log('fetching gifs with terms:', action.payload)
+        yield axios.get(`/api/favorite/${action.payload}`)
     }catch(error) {
         console.log('error fetching gifs', error)
     }
