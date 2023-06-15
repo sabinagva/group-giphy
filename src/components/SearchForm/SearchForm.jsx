@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import SearchResult from '../SearchResult/SearchResult';
 
 function SearchForm () {
 
@@ -23,6 +24,7 @@ function SearchForm () {
             onChange={(event) => setSearch(event.target.value)}
             />
             <input type='submit' value='SEARCH' />
+            <SearchResult />
         </form>
     )
 }
