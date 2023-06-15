@@ -7,6 +7,21 @@ const { Pool } = require('pg');
 const router = express.Router();
 
 // return all favorite images
+router.get('/fav', (req, res) =>{
+  console.log('IN FAVORITE GET');
+  const getQuery = `SELECT * FROM favorite ORDER BY id DESC;`
+
+  pool.query(getQuery)
+  .then((result)=>{
+    console.log('Favorites GET success', result);
+    res.send(result.rows)
+  }).catch((err)=>{
+    console.log('Error with favorites GET', err);
+    res.sendStatus(500)
+  })
+});
+
+//return search endpoint results
 router.get(`/:search`, (req, res) => {
   console.log('req.params.search is:', req.params.search)
   const searchInput = req.params.search
@@ -22,11 +37,11 @@ router.get(`/:search`, (req, res) => {
 });
 
 // add a new favorite
-router.post('/', (req, res) => {  
-  const newFav = req.body 
+router.post('/', (req, res) => {
+  const newFav = req.body
   const sqlQuery = `INSERT INTO "favorite" ("url")
                       VALUES ($1)`
-  pool.query(sqlQuery, newFav.url)
+  pool.query(sqlQuery,[ newFav.url])
   .then(()=>{
     res.sendStatus(200);
   })
