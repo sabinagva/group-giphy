@@ -6,11 +6,11 @@ import SearchForm from '../SearchForm/SearchForm';
 function App(props) {
   return (
     <div>
-      <Router>
       <h1>Giphy Search!</h1>
-      <Route exact path='/'>
-        <SearchForm />
-      </Route>
+      <Router>
+        <Route exact path='/'>
+          <SearchForm />
+        </Route>
       </Router>
     </div>
   );

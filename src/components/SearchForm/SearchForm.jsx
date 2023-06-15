@@ -5,13 +5,13 @@ function SearchForm () {
 
     const dispatch = useDispatch();
 
-    let [searchInput, setSearchInput] = useState('')
+    let [search, setSearch] = useState('')
 
     const searchGifs = (event) => {
         event.preventDefault();
-        console.log('Search input is:', searchInput)
-        dispatch({ type: 'GET_GIF', payload: searchInput})
-        setSearchInput('')
+        console.log('Search input is:', search)
+        dispatch({ type: 'GET_GIF', payload: search})
+        setSearch('')
     } 
 
     return (
@@ -19,8 +19,8 @@ function SearchForm () {
             <input 
             type='text'
             placeholder='Search for GIFs Here!'
-            value={searchInput}
-            onChange={(event) => setSearchInput(event.target.value)}
+            value={search}
+            onChange={(event) => setSearch(event.target.value)}
             />
             <input type='submit' value='SEARCH' />
         </form>
