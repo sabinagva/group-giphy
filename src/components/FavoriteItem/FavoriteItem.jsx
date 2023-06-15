@@ -13,12 +13,13 @@ function FavoriteItem({ item }) {
 	};
 
 	const confirmCategory = () => {
-		dispatch = { type: "PUT_GIF", payload: {favId: item.id, catId: category.id}
-	};
+		dispatch({ type: "PUT_GIF", payload: {favId: item.id, catId: category.id}
+	});
+    }
 
 	return (
 		<div key={item.id}>
-			<img src={item.url} />
+			<img height={100} src={item.url} />
 			<label>
 				Category:
 				<select onChange={(e) => handleCategory(e.target.value)}>
@@ -35,5 +36,5 @@ function FavoriteItem({ item }) {
 	);
 }
 
-}
+
 export default FavoriteItem;
