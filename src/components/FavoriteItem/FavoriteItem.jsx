@@ -13,11 +13,11 @@ function FavoriteItem({ item }) {
 	};
 
 	const confirmCategory = () => {
-		dispatch = { type: "ADD_CATEGORY", payload: category.id };
+		dispatch = { type: "PUT_GIF", payload: {favId: item.id, catId: category.id}
 	};
 
 	return (
-		<div>
+		<div key={item.id}>
 			<img src={item.url} />
 			<label>
 				Category:
@@ -30,9 +30,10 @@ function FavoriteItem({ item }) {
 					<option value={5}> Meme</option>
 				</select>
 			</label>
-			<button onClick={confirmCategory}>Confirm</button>
+			<button disabled={category.id === 0} onClick={confirmCategory}>Confirm</button>
 		</div>
 	);
 }
 
+}
 export default FavoriteItem;

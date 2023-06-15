@@ -17,7 +17,7 @@ function* watcherSaga() {
     yield takeLatest('PUT_GIF', updateGif)
     yield takeLatest('GET_FAV', fetchFav)
 }
-//reducers 
+//reducers
 const favoriteList = (state = [], action) => {
             return state
 };
@@ -37,7 +37,7 @@ function* fetchGif(action) {
     try {
         console.log('fetching gifs with terms:', action.payload)
         const gifResponse = yield axios.get(`/api/favorite/${action.payload}`)
-        
+
         yield put({ type: 'SET_GIF', payload: gifResponse.data })
     } catch (error) {
         console.log('error fetching gifs', error)
@@ -64,9 +64,9 @@ function* postGif(action) {
     }
 }
 
-function* updateGif() {
+function* updateGif(action) {
     try {
-        yield axios.put('/api/favorite ')
+        yield axios.put(`/api/favorite/${action.payload.favId}`, action.payload.catId)
         console.log('posting gifs')
     } catch (error) {
         console.log('error posting gifs to database', error)
