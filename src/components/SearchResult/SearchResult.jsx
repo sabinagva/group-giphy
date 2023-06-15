@@ -9,23 +9,16 @@ const gifListReducer = useSelector (store => store.gifList)
     const addNewGif = (event) => {
         event.preventDefault();
         dispatch({type:'ADD_GIF', payload:''});
-
-
     }
 
     return(
-        <div>
-            
-           
-            
+        <div> 
             {gifListReducer.map ((gif,i) => (
-                <div>
-                <img key={i} src={gif.images.original.url}></img>
-                
+                <div key={i}>
+                <img src={gif.images.original.url}></img>
                 <button onClick={addNewGif}>Add Favorite</button>
                 </div>
-            ))}
-            
+            ))}       
         </div>
     )
 }
