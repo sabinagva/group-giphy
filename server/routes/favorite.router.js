@@ -1,7 +1,8 @@
 const express = require('express');
 const pool = require('../modules/pool');
 require('dotenv').config();
-const axios = require('axios')
+const axios = require('axios');
+const { Pool } = require('pg');
 
 const router = express.Router();
 
@@ -22,7 +23,17 @@ router.get(`/:search`, (req, res) => {
 
 // add a new favorite
 router.post('/', (req, res) => {
-  res.sendStatus(200);
+  
+  const newFav = req.body 
+  const sqlQuery = `INSERT INTO "favorite" ("url")
+                      VALUES ($1)`
+  pool.query(sqlQuery, newFav.url)
+  .then(()=>{
+    res.sendStatus(200);
+  })
+  .catch(error => {
+    console.log('error posting on server', error)
+  })
 });
 
 // update given favorite with a category id
