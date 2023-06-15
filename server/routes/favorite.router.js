@@ -6,8 +6,8 @@ const axios = require('axios')
 const router = express.Router();
 
 // return all favorite images
-router.get(`/`, (req, res) => {
-  const searchInput = req.body.input
+router.get(`/:search`, (req, res) => {
+  const searchInput = req.params.search
   axios.get(`http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${searchInput}&limit=25&offset=0&rating=pg-13&lang=en&bundle=messaging_non_clips`)
   .then(response => {
     res.send(response.data);
