@@ -68,8 +68,10 @@ function* postGif(action) {
 }
 
 function* updateGif(action) {
+    console.log('favId on index',action.payload.favId);
+    console.log('catId on index',action.payload.catId);
     try {
-        yield axios.put(`/api/favorite/${action.payload.favId}`, action.payload.catId)
+        yield axios.put(`/api/favorite/${action.payload.favId}`, action.payload)
         console.log('posting gifs')
     } catch (error) {
         console.log('error posting gifs to database', error)
