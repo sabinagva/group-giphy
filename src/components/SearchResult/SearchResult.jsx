@@ -1,9 +1,10 @@
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux";
 
-const gifListReducer = (store => store.gifList)
 
 const SearchResult = () => {
+const gifListReducer = useSelector (store => store.gifList)
+
     const dispatch = useDispatch();
     const addNewGif = (event) => {
         event.preventDefault();
@@ -12,11 +13,19 @@ const SearchResult = () => {
 
     }
 
-   
     return(
         <div>
-            <button onClick={addNewGif}>Add Favorite</button>
-
+            
+           
+            
+            {gifListReducer.map ((gif,i) => (
+                <div>
+                <img key={i} src={gif.images.original.url}></img>
+                
+                <button onClick={addNewGif}>Add Favorite</button>
+                </div>
+            ))}
+            
         </div>
     )
 }

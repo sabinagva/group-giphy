@@ -19,50 +19,57 @@ function* watcherSaga() {
 }
 //reducers 
 const favoriteList = (state = [], action) => {
-    return state
-}
+            return state
+};
 
 const gifList = (state = [], action) => {
+    console.log('action.payload is:', action.payload)
+    switch (action.type) {
+        case 'SET_GIF':
+            return action.payload.data
+        default:
     return state
+}
 }
 //saga CRUD functions
 
-function* fetchGif(action){
-    try{
+function* fetchGif(action) {
+    try {
         console.log('fetching gifs with terms:', action.payload)
-        yield axios.get(`/api/favorite/${action.payload}`)
+        const gifResponse = yield axios.get(`/api/favorite/${action.payload}`)
         
-    }catch(error) {
+        yield put({ type: 'SET_GIF', payload: gifResponse.data })
+    } catch (error) {
         console.log('error fetching gifs', error)
     }
 }
 
-function* fetchFav(){
-    try{
+function* fetchFav() {
+    try {
         yield axios.get('/api/favorite')
         console.log('fetching  favorite gifs')
-    }catch(error) {
+    } catch (error) {
         console.log('error fetching favorite gifs', error)
     }
 }
 
-function* postGif(action){
+function* postGif(action) {
     try {
         yield axios.post('/api/favorite ',{url: action.payload})
         console.log('action.payload is', action.payload)
         console.log('posting favorite gifs')
         yield put ({type: 'GET_GIF'})
-    }catch(error) {
-        console.log('error posting gifs to database',error)
+    } catch (error) {
+        console.log('error posting gifs to database', error)
     }
 }
 
-function* updateGif(){
+function* updateGif() {
     try {
         yield axios.put('/api/favorite ')
         console.log('posting gifs')
-    }catch(error) {
-        console.log('error posting gifs to database',error)
+    } catch (error) {
+        console.log('error posting gifs to database', error)
     }
 }
 //Holds all th reducers and saga middleware
@@ -71,7 +78,7 @@ const store = createStore(
         gifList,
         favoriteList
     }),
-    applyMiddleware(sagaMiddleware,logger),
+    applyMiddleware(sagaMiddleware, logger),
 );
 //this allows watcher saga start watching
 sagaMiddleware.run(watcherSaga)
@@ -79,8 +86,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
         <Provider store={store}>
-          <App />
+            <App />
         </Provider>
-       
+
     </React.StrictMode>
 );
