@@ -14,18 +14,14 @@ const gifListReducer = useSelector (store => store.gifList)
     }
 
     return(
-        <div>
-            
-           
-            
+        <div> 
             {gifListReducer.map ((gif,i) => (
                 <div key={i} >
                 <img src={gif.images.original.url}></img>
                 
                 <button onClick={() => dispatch({type:'ADD_GIF', payload: gif.images.original.url})}>Add Favorite</button>
                 </div>
-            ))}
-            
+            ))}       
         </div>
     )
 }

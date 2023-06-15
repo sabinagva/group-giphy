@@ -22,8 +22,7 @@ router.get(`/:search`, (req, res) => {
 });
 
 // add a new favorite
-router.post('/', (req, res) => {
-  
+router.post('/', (req, res) => {  
   const newFav = req.body 
   const sqlQuery = `INSERT INTO "favorite" ("url")
                       VALUES ($1)`
