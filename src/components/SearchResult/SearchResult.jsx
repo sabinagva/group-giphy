@@ -6,9 +6,9 @@ const SearchResult = () => {
 const gifListReducer = useSelector (store => store.gifList)
 
     const dispatch = useDispatch();
-    const addNewGif = (event) => {
-        event.preventDefault();
-        dispatch({type:'ADD_GIF', payload:''});
+    const addNewGif = (url, event) => {
+        event.preventDefault()
+        dispatch({type:'ADD_GIF', payload: url});
 
 
     }
@@ -19,10 +19,10 @@ const gifListReducer = useSelector (store => store.gifList)
            
             
             {gifListReducer.map ((gif,i) => (
-                <div>
-                <img key={i} src={gif.images.original.url}></img>
+                <div key={i} >
+                <img src={gif.images.original.url}></img>
                 
-                <button onClick={addNewGif}>Add Favorite</button>
+                <button onClick={() => dispatch({type:'ADD_GIF', payload: gif.images.original.url})}>Add Favorite</button>
                 </div>
             ))}
             
