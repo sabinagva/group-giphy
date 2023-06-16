@@ -26,9 +26,10 @@ const favoriteList = (state = [], action) => {
 };
 
 const gifList = (state = [], action) => {
-    console.log('action.payload is:', action.payload)
+ console.log("action.payload before case type SET_GIF is:", action.payload);
     switch (action.type) {
         case 'SET_GIF':
+             console.log("action.payload BEFORE RETURNING:", action.payload.data);
             return action.payload.data
         default:
     return state
@@ -39,7 +40,8 @@ const gifList = (state = [], action) => {
 function* fetchGif(action) {
     try {
         console.log('fetching gifs with terms:', action.payload)
-        const gifResponse = yield axios.get(`/api/favorite/${action.payload}`)
+        const gifResponse = yield axios.get(`/api/search/${action.payload}`)
+        console.log('AFTER SEARCH GET');
 
         yield put({ type: 'SET_GIF', payload: gifResponse.data })
     } catch (error) {
@@ -47,10 +49,11 @@ function* fetchGif(action) {
     }
 }
 
-function* fetchFav(action) {
+function* fetchFav() {
 	try {
 		console.log("fetching favs");
-		const favGifs = yield axios.get(`/api/favorite/fav`);
+		const favGifs = yield axios.get(`/api/favorite/fav/new`);
+        console.log('THIS IS THE RESPONSE FROM FETCHFAV', favGifs.data);
 		yield put({ type: "SET_FAV", payload: favGifs.data });
 	} catch (error) {
 		console.log("error fetching gifs", error);
@@ -63,7 +66,7 @@ function* postGif(action) {
         yield axios.post('/api/favorite', {url: action.payload})
         console.log('action.payload is', action.payload)
         console.log('posting favorite gifs')
-        yield put ({type: 'GET_FAV'})
+        // yield put ({type: 'GET_FAV'})
     } catch (error) {
         console.log('error posting gifs to database', error)
     }
